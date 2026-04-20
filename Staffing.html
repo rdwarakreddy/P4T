@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>IT Staffing – Pixel4Technologies</title>
+<meta name="description" content="Pre-vetted developers, engineers, and IT professionals placed in days. Domestic, international, contract, and dedicated staffing solutions."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="Staffing.css"/>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">Pixel<span class="logo-accent">4</span>Technologies</a>
+    <div class="navbar-links">
+      <a href="index.html"       class="nav-link">Home</a>
+      <a href="DM.html"          class="nav-link">Digital Marketing</a>
+      <a href="Staffing.html"    class="nav-link nav-link--active">IT Staffing</a>
+      <a href="Consultancy.html" class="nav-link">Consultancy</a>
+      <a href="about.html"       class="nav-link">About</a>
+      <a href="Contact.html"     class="nav-link">Contact</a>
+    </div>
+    <a href="Contact.html" class="navbar-cta">Get Started</a>
+    <div id="menuBtn">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+</nav>
+
+<div id="menuOverlay"></div>
+<div id="mobileMenu">
+  <div id="closeMenu"></div>
+  <a href="index.html"       class="mob-link">Home</a>
+  <a href="DM.html"          class="mob-link">Digital Marketing</a>
+  <a href="Staffing.html"    class="mob-link mob-active">IT Staffing</a>
+  <a href="Consultancy.html" class="mob-link">Consultancy</a>
+  <a href="about.html"       class="mob-link">About</a>
+  <a href="Contact.html"     class="mob-link">Contact</a>
+  <a href="Contact.html"     class="mob-cta">Get Started</a>
+</div>
+
+<script>
+(function(){
+  const btn=document.getElementById('menuBtn'),menu=document.getElementById('mobileMenu'),
+        close=document.getElementById('closeMenu'),overlay=document.getElementById('menuOverlay');
+  let open=false;
+  function openM(){open=true;menu.style.right='0';btn.classList.add('active');overlay.classList.add('visible');document.body.style.overflow='hidden';}
+  function closeM(){open=false;menu.style.right='-100%';btn.classList.remove('active');overlay.classList.remove('visible');document.body.style.overflow='';}
+  btn.addEventListener('click',()=>open?closeM():openM());
+  close.addEventListener('click',closeM);
+  overlay.addEventListener('click',closeM);
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+})();
+</script>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="dm-hero">
+  <div class="dm-hero-glow"></div>
+  <div class="dm-hero-grid"></div>
+  <div class="dm-hero-inner">
+    <div class="section-label">IT Staffing</div>
+    <h1>The Right Tech Talent,<br/><span class="accent">Right When You Need It.</span></h1>
+    <p class="dm-hero-sub">We connect businesses with pre-vetted developers, engineers, and IT professionals — placed in days, not months, ready to deliver from day one.</p>
+    <div class="dm-hero-ctas">
+      <a href="Contact.html" class="cta-primary">Hire Talent Now</a>
+      <a href="#staffing-services" class="cta-ghost">See Our Solutions ↓</a>
+    </div>
+    <div class="dm-hero-stats">
+      <div class="stat-item"><span class="stat-n">500+</span><span class="stat-l">Professionals Placed</span></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><span class="stat-n">72hrs</span><span class="stat-l">Avg. Placement Time</span></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><span class="stat-n">20+</span><span class="stat-l">Tech Domains Covered</span></div>
+    </div>
+  </div>
+  <!-- floating badges -->
+  <div class="hero-float f1">⚡ Placed in 72 Hours</div>
+  <div class="hero-float f2">🌍 Global Talent Pool</div>
+  <div class="hero-float f3">✅ Pre-Vetted Experts</div>
+</section>
+
+<!-- ═══════════ SERVICES GRID ═══════════ -->
+<section class="section dm-services" id="staffing-services">
+  <div class="container">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-heading">Full-Spectrum <span class="accent">IT Staffing Solutions</span></h2>
+    <p class="section-sub">From contract hiring to dedicated teams — we have the right model for every business need.</p>
+
+    <div class="services-grid">
+
+      <div class="svc-card">
+        <div class="svc-icon">🏢</div>
+        <h3>Domestic Staffing</h3>
+        <p>Hire skilled IT professionals across India quickly. We source, screen, and place top local talent matched to your exact requirements.</p>
+        <ul class="svc-list">
+          <li>City-specific talent pools</li>
+          <li>Fast turnaround hiring</li>
+          <li>Cultural & timezone fit</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card svc-featured">
+        <div class="svc-badge">Most Popular</div>
+        <div class="svc-icon">🌍</div>
+        <h3>International Hiring</h3>
+        <p>Build global engineering teams with full legal compliance and onboarding support — without the complexity of cross-border hiring.</p>
+        <ul class="svc-list">
+          <li>Multi-country hiring support</li>
+          <li>Compliance & contract handling</li>
+          <li>Onboarding & documentation</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">⚡</div>
+        <h3>Contract Staffing</h3>
+        <p>Scale your team instantly for short-term or project-based needs. Flexible contracts, zero long-term overhead, immediate deployment.</p>
+        <ul class="svc-list">
+          <li>Short & long-term contracts</li>
+          <li>Rapid deployment ready</li>
+          <li>Payroll & compliance managed</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">👨‍💻</div>
+        <h3>Dedicated Developers</h3>
+        <p>Full-time remote talent that works exclusively for your business — aligned to your culture, goals, and tech stack from day one.</p>
+        <ul class="svc-list">
+          <li>Exclusive full-time engagement</li>
+          <li>Tech stack alignment</li>
+          <li>Direct communication model</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🔍</div>
+        <h3>Executive Tech Search</h3>
+        <p>Hire CTOs, VPs of Engineering, and senior tech leaders through our headhunting network. Confidential, precise, and fast.</p>
+        <ul class="svc-list">
+          <li>C-suite & senior roles</li>
+          <li>Confidential search process</li>
+          <li>Network-driven sourcing</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🤝</div>
+        <h3>Managed Teams</h3>
+        <p>Let us build and manage an entire offshore or nearshore tech team — from hiring to delivery, so you focus on your product.</p>
+        <ul class="svc-list">
+          <li>End-to-end team management</li>
+          <li>Project-based or ongoing</li>
+          <li>Dedicated project manager</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🎓</div>
+        <h3>Fresher Hiring Programs</h3>
+        <p>Tap into our trained graduate pipeline. We pre-assess candidates on aptitude and tech skills before they reach your desk.</p>
+        <ul class="svc-list">
+          <li>Campus-sourced talent</li>
+          <li>Pre-assessed & trained</li>
+          <li>Cost-effective scaling</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">📊</div>
+        <h3>RPO (Recruitment Process Outsourcing)</h3>
+        <p>Hand over your entire recruitment function to us. We act as your embedded talent acquisition team — at a fraction of the cost.</p>
+        <ul class="svc-list">
+          <li>Full-cycle recruiting</li>
+          <li>ATS & process management</li>
+          <li>Employer branding support</li>
+        </ul>
+        <a href="Contact.html" class="svc-cta">Learn More →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS / HOW WE WORK ═══════════ -->
+<section class="section dm-process dark">
+  <div class="container">
+    <h2 class="section-heading center">How We Place Talent</h2>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🔍</div>
+          <h3>Understand Your Needs</h3>
+          <p>We deep-dive into your team gaps, tech stack, culture, and timelines — so every candidate we present is already aligned before the first call.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🌐</div>
+          <h3>Source from Our Network</h3>
+          <p>Access our curated pool of 10,000+ vetted IT professionals across domains — available for immediate engagement without long lead times.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">✅</div>
+          <h3>Rigorous Screening</h3>
+          <p>Every candidate goes through technical tests, communication assessments, and background verification — only the top 5% reach your shortlist.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🤝</div>
+          <h3>Interview & Offer Closure</h3>
+          <p>We coordinate rapid interviews, manage scheduling, handle offer negotiation, and ensure smooth closures — cutting weeks off your hiring cycle.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">📈</div>
+          <h3>Onboard & Scale Confidently</h3>
+          <p>We stay with you post-hire — supporting onboarding, replacement guarantees, and team scale-up as your business grows.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ROLES WE FILL — MARQUEE ═══════════ -->
+<section class="section dm-testimonials">
+  <div class="container">
+    <div class="section-label">Talent We Place</div>
+    <h2 class="section-heading">What Our <span class="accent">Clients</span> Say</h2>
+    <p class="section-sub">Real businesses. Real hires. Here's how we've helped teams scale faster.</p>
+  </div>
+
+  <!-- Row 1 — scrolls left -->
+  <div class="marquee-outer">
+    <div class="marquee-row row-left">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We hired 3 senior React developers within 5 days. The quality of candidates was outstanding — every one of them was production-ready from day one."</p>
+        <div class="tcard-author"><div class="tcard-av">RK</div><div><div class="tcard-name">Rohit Khanna</div><div class="tcard-role">CTO, TechVision Inc.</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our cross-border hiring in the UAE was seamless. Pixel4 handled compliance, contracts, and onboarding — we just welcomed the team."</p>
+        <div class="tcard-author"><div class="tcard-av">MS</div><div><div class="tcard-name">Maya Schmid</div><div class="tcard-role">HR Director, GrowthEdge</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Scaled our dev team from 4 to 18 engineers in under 2 months. Pixel4 understood our culture and tech stack — the fit has been incredible."</p>
+        <div class="tcard-author"><div class="tcard-av">PD</div><div><div class="tcard-name">Priya Desai</div><div class="tcard-role">VP Engineering, SwiftHire</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We tried 3 agencies before Pixel4. Nobody else came close on candidate quality. Our DevOps team is now our strongest asset."</p>
+        <div class="tcard-author"><div class="tcard-av">AK</div><div><div class="tcard-name">Arjun Kumar</div><div class="tcard-role">Director, BrandPulse Tech</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Contract staffing for our fintech project was exactly what we needed. Zero hassle, perfect timing, and all three contractors are now full-time."</p>
+        <div class="tcard-author"><div class="tcard-av">SN</div><div><div class="tcard-name">Sneha Nair</div><div class="tcard-role">COO, FlowStack Finance</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"They placed our CTO in 3 weeks — a confidential search we thought would take months. Absolutely world-class executive recruitment."</p>
+        <div class="tcard-author"><div class="tcard-av">SS</div><div><div class="tcard-name">Syed Sikandar</div><div class="tcard-role">CEO, RealtyCo Digital</div></div></div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We hired 3 senior React developers within 5 days. The quality of candidates was outstanding — every one of them was production-ready from day one."</p>
+        <div class="tcard-author"><div class="tcard-av">RK</div><div><div class="tcard-name">Rohit Khanna</div><div class="tcard-role">CTO, TechVision Inc.</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our cross-border hiring in the UAE was seamless. Pixel4 handled compliance, contracts, and onboarding — we just welcomed the team."</p>
+        <div class="tcard-author"><div class="tcard-av">MS</div><div><div class="tcard-name">Maya Schmid</div><div class="tcard-role">HR Director, GrowthEdge</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Scaled our dev team from 4 to 18 engineers in under 2 months. Pixel4 understood our culture and tech stack — the fit has been incredible."</p>
+        <div class="tcard-author"><div class="tcard-av">PD</div><div><div class="tcard-name">Priya Desai</div><div class="tcard-role">VP Engineering, SwiftHire</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We tried 3 agencies before Pixel4. Nobody else came close on candidate quality. Our DevOps team is now our strongest asset."</p>
+        <div class="tcard-author"><div class="tcard-av">AK</div><div><div class="tcard-name">Arjun Kumar</div><div class="tcard-role">Director, BrandPulse Tech</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Contract staffing for our fintech project was exactly what we needed. Zero hassle, perfect timing, and all three contractors are now full-time."</p>
+        <div class="tcard-author"><div class="tcard-av">SN</div><div><div class="tcard-name">Sneha Nair</div><div class="tcard-role">COO, FlowStack Finance</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"They placed our CTO in 3 weeks — a confidential search we thought would take months. Absolutely world-class executive recruitment."</p>
+        <div class="tcard-author"><div class="tcard-av">SS</div><div><div class="tcard-name">Syed Sikandar</div><div class="tcard-role">CEO, RealtyCo Digital</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 — scrolls right -->
+  <div class="marquee-outer">
+    <div class="marquee-row row-right">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Needed a full-stack team in 10 days for a product launch. Pixel4 delivered 5 engineers on time — and the product shipped without a single delay."</p>
+        <div class="tcard-author"><div class="tcard-av">VM</div><div><div class="tcard-name">Vikram Mehta</div><div class="tcard-role">Founder, LaunchPad SaaS</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The RPO service transformed our talent pipeline. We went from 45-day hiring cycles to 12 days — and quality went up, not down."</p>
+        <div class="tcard-author"><div class="tcard-av">VD</div><div><div class="tcard-name">Volodymyr Dybenko</div><div class="tcard-role">CEO, Salee</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Placed 12 AI/ML engineers for our data division in 6 weeks. These are niche roles — Pixel4 found talent we couldn't locate ourselves."</p>
+        <div class="tcard-author"><div class="tcard-av">AM</div><div><div class="tcard-name">Arjun Menon</div><div class="tcard-role">Head of AI, DPS International</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our dedicated dev team built our entire platform from scratch. Communication was perfect, delivery was ahead of schedule. Exceptional partnership."</p>
+        <div class="tcard-author"><div class="tcard-av">AS</div><div><div class="tcard-name">Amber Staynings</div><div class="tcard-role">CEO, Hurricane HL Ltd</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Every candidate is genuinely vetted. We've never had a bad hire through Pixel4 — and we've placed 30+ people with them over two years."</p>
+        <div class="tcard-author"><div class="tcard-av">TF</div><div><div class="tcard-name">Ted Fluck</div><div class="tcard-role">CHRO, IGTD Philips</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Freshers from their program are trained and motivated. Three of our best engineers today joined as fresh graduates through Pixel4's pipeline."</p>
+        <div class="tcard-author"><div class="tcard-av">HH</div><div><div class="tcard-name">Helge Hoffmann</div><div class="tcard-role">Engineering Lead, Ogilvy Tech</div></div></div>
+      </div>
+      <!-- Duplicate -->
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Needed a full-stack team in 10 days for a product launch. Pixel4 delivered 5 engineers on time — and the product shipped without a single delay."</p>
+        <div class="tcard-author"><div class="tcard-av">VM</div><div><div class="tcard-name">Vikram Mehta</div><div class="tcard-role">Founder, LaunchPad SaaS</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The RPO service transformed our talent pipeline. We went from 45-day hiring cycles to 12 days — and quality went up, not down."</p>
+        <div class="tcard-author"><div class="tcard-av">VD</div><div><div class="tcard-name">Volodymyr Dybenko</div><div class="tcard-role">CEO, Salee</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Placed 12 AI/ML engineers for our data division in 6 weeks. These are niche roles — Pixel4 found talent we couldn't locate ourselves."</p>
+        <div class="tcard-author"><div class="tcard-av">AM</div><div><div class="tcard-name">Arjun Menon</div><div class="tcard-role">Head of AI, DPS International</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our dedicated dev team built our entire platform from scratch. Communication was perfect, delivery was ahead of schedule. Exceptional partnership."</p>
+        <div class="tcard-author"><div class="tcard-av">AS</div><div><div class="tcard-name">Amber Staynings</div><div class="tcard-role">CEO, Hurricane HL Ltd</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Every candidate is genuinely vetted. We've never had a bad hire through Pixel4 — and we've placed 30+ people with them over two years."</p>
+        <div class="tcard-author"><div class="tcard-av">TF</div><div><div class="tcard-name">Ted Fluck</div><div class="tcard-role">CHRO, IGTD Philips</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Freshers from their program are trained and motivated. Three of our best engineers today joined as fresh graduates through Pixel4's pipeline."</p>
+        <div class="tcard-author"><div class="tcard-av">HH</div><div><div class="tcard-name">Helge Hoffmann</div><div class="tcard-role">Engineering Lead, Ogilvy Tech</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BANNER ═══════════ -->
+<section class="section dm-cta">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-box-left">
+        <div class="section-label">Ready to Hire?</div>
+        <h2>Let's Build Your <span class="accent">Dream Tech Team</span></h2>
+        <p>Book a free 30-minute talent consultation. We'll assess your current gaps and present a custom staffing plan tailored to your tech stack, budget, and timelines.</p>
+        <ul class="cta-promises">
+          <li>✓ No commitment, no pressure</li>
+          <li>✓ Shortlist within 72 hours</li>
+          <li>✓ Replacement guarantee on all placements</li>
+        </ul>
+        <a href="Contact.html" class="cta-primary">Book Free Consultation</a>
+      </div>
+      <div class="cta-box-right">
+        <div class="cta-stat-card"><span class="cta-big">500+</span><span>IT professionals successfully placed</span></div>
+        <div class="cta-stat-card"><span class="cta-big">72hrs</span><span>Average time to first shortlist</span></div>
+        <div class="cta-stat-card"><span class="cta-big">96%</span><span>Client retention &amp; satisfaction rate</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Pixel<span class="accent">4</span>Technologies</a>
+      <p class="footer-desc">Your all-in-one growth partner for digital marketing, IT staffing, and expert consultancy.</p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="DM.html">Digital Marketing</a></li>
+        <li><a href="Staffing.html">IT Staffing</a></li>
+        <li><a href="Consultancy.html">Consultancy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Staffing Solutions</h5>
+      <ul>
+        <li><a href="Staffing.html">Domestic Staffing</a></li>
+        <li><a href="Staffing.html">International Hiring</a></li>
+        <li><a href="Staffing.html">Contract Staffing</a></li>
+        <li><a href="Staffing.html">Dedicated Developers</a></li>
+        <li><a href="Staffing.html">RPO Services</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© 2025 Pixel4Technologies. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const items = document.querySelectorAll('.timeline-item');
+function showOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+  items.forEach(item => {
+    const boxTop = item.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) { item.classList.add('show'); }
+  });
+}
+window.addEventListener('scroll', showOnScroll);
+showOnScroll();
+</script>
+
+</body>
+</html>

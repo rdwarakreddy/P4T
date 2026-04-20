@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Consultancy – Pixel4Technologies</title>
+<meta name="description" content="Pixel4Technologies offers Robotics Classes for Schools, Cybersecurity, DevOps, Python Training, and ERP/CRM Solutions with certification."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="Consultancy.css"/>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      Pixel<span class="logo-accent">4</span>Technologies
+    </a>
+    <div class="navbar-links">
+      <a href="index.html"       class="nav-link">Home</a>
+      <a href="DM.html"          class="nav-link">Digital Marketing</a>
+      <a href="Staffing.html"    class="nav-link">IT Staffing</a>
+      <a href="Consultancy.html" class="nav-link nav-link--active">Consultancy</a>
+      <a href="about.html"       class="nav-link">About</a>
+      <a href="Contact.html"     class="nav-link">Contact</a>
+    </div>
+    <a href="Contact.html" class="navbar-cta">Get Started</a>
+    <div id="menuBtn">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+</nav>
+
+<div id="menuOverlay"></div>
+
+<div id="mobileMenu">
+  <div id="closeMenu"></div>
+  <a href="index.html"       class="mob-link">Home</a>
+  <a href="DM.html"          class="mob-link">Digital Marketing</a>
+  <a href="Staffing.html"    class="mob-link">IT Staffing</a>
+  <a href="Consultancy.html" class="mob-link mob-active">Consultancy</a>
+  <a href="about.html"       class="mob-link">About</a>
+  <a href="Contact.html"     class="mob-link">Contact</a>
+  <a href="Contact.html" class="mob-cta">Get Started</a>
+</div>
+
+<script>
+  (function () {
+    const menuBtn    = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu  = document.getElementById('closeMenu');
+    const overlay    = document.getElementById('menuOverlay');
+    let menuOpen = false;
+    function openMenu() {
+      menuOpen = true; mobileMenu.style.right = '0';
+      menuBtn.classList.add('active'); overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenuFn() {
+      menuOpen = false; mobileMenu.style.right = '-100%';
+      menuBtn.classList.remove('active'); overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+    menuBtn.addEventListener('click', function () { menuOpen ? closeMenuFn() : openMenu(); });
+    closeMenu.addEventListener('click', closeMenuFn);
+    overlay.addEventListener('click', closeMenuFn);
+    mobileMenu.querySelectorAll('a').forEach(function (l) { l.addEventListener('click', closeMenuFn); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenuFn(); });
+  })();
+</script>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="container hero-content">
+    <div class="hero-badge">🎓 Training with Certification</div>
+
+    <h1 class="hero-headline">
+      Build Skills.<br/>
+      Earn Certificates.<br/>
+      <span class="accent">Grow Confidently.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Practical, industry-aligned training in Robotics, Cybersecurity, DevOps, Python, and ERP &amp; CRM — every course comes with a recognised certificate.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="Contact.html" class="hero-cta-primary">Book Free Consultation</a>
+      <a href="#services" class="hero-cta-secondary">View Courses ↓</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="stat-num">500+</span><span class="stat-label">Students Trained</span></div>
+      <div class="stat-pill"><span class="stat-num">4</span><span class="stat-label">Certified Programmes</span></div>
+      <div class="stat-pill"><span class="stat-num">50+</span><span class="stat-label">Schools &amp; Corporates</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="floating-card fc-1">🤖 Robotics Lab Sessions</div>
+    <div class="floating-card fc-2">📜 Certificate on Completion</div>
+  </div>
+</section>
+
+<!-- ═══════════ WHAT WE OFFER ═══════════ -->
+<section class="section services-overview" id="services">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-heading">Our <span class="accent">Training Programmes</span></h2>
+    <p class="section-sub">
+      Each programme is hands-on, mentor-led, and ends with a certificate of completion.
+    </p>
+
+    <div class="services-grid-flex">
+
+      <!-- Robotics -->
+      <div class="service-card-flex">
+        <div class="sc-icon">🤖</div>
+        <h3>Robotics for Schools</h3>
+        <p>Hands-on robotics curriculum for school students, sparking STEM curiosity from Grade 4 onwards.</p>
+        <ul class="course-list">
+          <li>Introduction to Robotics &amp; Electronics</li>
+          <li>Building &amp; Programming Robots</li>
+          <li>Sensors, Motors &amp; Actuators</li>
+          <li>Line Follower &amp; Obstacle Avoidance</li>
+          <li>Mini Project + Certificate</li>
+        </ul>
+        <a href="Contact.html" class="sc-link">Enquire Now →</a>
+      </div>
+
+      <!-- Cybersecurity -->
+      <div class="service-card-flex">
+        <div class="sc-icon">🛡️</div>
+        <h3>Cyber Security</h3>
+        <p>Learn how to protect networks and systems with training that covers real-world attack and defence techniques.</p>
+        <ul class="course-list">
+          <li>Networking &amp; Security Fundamentals</li>
+          <li>Ethical Hacking Basics</li>
+          <li>Web Application Security</li>
+          <li>Threat Detection &amp; Incident Response</li>
+          <li>Compliance &amp; Best Practices + Certificate</li>
+        </ul>
+        <a href="Contact.html" class="sc-link">Enquire Now →</a>
+      </div>
+
+      <!-- DevOps -->
+      <div class="service-card-flex">
+        <div class="sc-icon">⚙️</div>
+        <h3>DevOps Training</h3>
+        <p>Master the tools modern software teams use daily — from version control to cloud deployments.</p>
+        <ul class="course-list">
+          <li>Linux &amp; Shell Scripting</li>
+          <li>Git &amp; CI/CD Pipelines</li>
+          <li>Docker &amp; Kubernetes</li>
+          <li>Jenkins, Ansible &amp; Terraform</li>
+          <li>Cloud Basics (AWS/Azure) + Certificate</li>
+        </ul>
+        <a href="Contact.html" class="sc-link">Enquire Now →</a>
+      </div>
+
+      <!-- Python -->
+      <div class="service-card-flex">
+        <div class="sc-icon">🐍</div>
+        <h3>Python Training</h3>
+        <p>From beginner to confident developer — covering core Python, data tools, automation, and real projects.</p>
+        <ul class="course-list">
+          <li>Python Fundamentals &amp; OOP</li>
+          <li>File Handling &amp; APIs</li>
+          <li>Data Analysis with Pandas &amp; NumPy</li>
+          <li>Automation &amp; Web Scraping</li>
+          <li>Capstone Project + Certificate</li>
+        </ul>
+        <a href="Contact.html" class="sc-link">Enquire Now →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHY CHOOSE US ═══════════ -->
+<section class="section why-us">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">Why Pixel4</div>
+    <h2 class="section-heading">What Makes Us <span class="accent">Different</span></h2>
+
+    <div class="why-grid-flex">
+      <div class="why-card-flex">
+        <div class="wc-icon">🎯</div>
+        <h4>Project-Based Learning</h4>
+        <p>Every course ends with a real project so you walk away with something tangible to show.</p>
+      </div>
+      <div class="why-card-flex">
+        <div class="wc-icon">📜</div>
+        <h4>Certificate on Completion</h4>
+        <p>All programmes include a certificate you can add to your resume or LinkedIn profile.</p>
+      </div>
+      <div class="why-card-flex">
+        <div class="wc-icon">🕐</div>
+        <h4>Flexible Batches</h4>
+        <p>Weekday, weekend, and online options available — we fit around your schedule.</p>
+      </div>
+      <div class="why-card-flex">
+        <div class="wc-icon">👨‍💻</div>
+        <h4>Expert Trainers</h4>
+        <p>All sessions are led by professionals with real industry experience, not just textbooks.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ ERP & CRM SOLUTIONS ═══════════ -->
+<section class="section erp-section" id="erp-crm">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">Business Solutions</div>
+    <h2 class="section-heading">ERP &amp; CRM <span class="accent">Tools We Sell</span></h2>
+    <p class="section-sub">
+      We help businesses choose, implement, and go live with the right ERP &amp; CRM platforms — fully configured and ready to use from day one.
+    </p>
+
+    <div class="erp-grid">
+
+      <div class="erp-card">
+        <div class="erp-icon">🟡</div>
+        <h4>Zoho CRM</h4>
+        <p>Manage leads, automate follow-ups, and track your entire sales pipeline in one place. Ideal for growing businesses.</p>
+        <a href="Contact.html" class="sc-link">Get a Demo →</a>
+      </div>
+
+      <div class="erp-card">
+        <div class="erp-icon">🟣</div>
+        <h4>Odoo ERP</h4>
+        <p>An all-in-one business platform covering sales, inventory, accounting, HR, and more — modular and fully scalable.</p>
+        <a href="Contact.html" class="sc-link">Get a Demo →</a>
+      </div>
+
+      <div class="erp-card">
+        <div class="erp-icon">🔵</div>
+        <h4>Salesforce CRM</h4>
+        <p>The world's leading CRM for enterprise sales automation, customer service, and marketing — implemented end-to-end.</p>
+        <a href="Contact.html" class="sc-link">Get a Demo →</a>
+      </div>
+
+      <div class="erp-card">
+        <div class="erp-icon">🟤</div>
+        <h4>SAP</h4>
+        <p>Finance, procurement, and resource planning for mid-to-large enterprises — we handle setup, configuration, and support.</p>
+        <a href="Contact.html" class="sc-link">Get a Demo →</a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT SNIPPET ═══════════ -->
+<section class="section contact-snippet">
+  <div class="contact-inner">
+
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-heading">Ready to <span class="accent">Enrol?</span></h2>
+    <p class="section-sub">
+      Reach out and we'll help you choose the right programme and batch for your goals.
+    </p>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="cc-icon">📞</div>
+        <div class="cc-title">Call Us</div>
+        <div class="cc-detail">+91 98765 43210</div>
+        <a href="tel:+919876543210" class="cc-btn">Call Now</a>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">💬</div>
+        <div class="cc-title">WhatsApp</div>
+        <div class="cc-detail">Chat instantly with our team</div>
+        <a href="https://wa.me/919876543210" target="_blank" class="cc-btn">Start Chat</a>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">✉️</div>
+        <div class="cc-title">Email Us</div>
+        <div class="cc-detail">hello@pixel4tech.in</div>
+        <a href="mailto:hello@pixel4tech.in" class="cc-btn">Send Email</a>
+      </div>
+    </div>
+
+    <div class="contact-location">📍 Bengaluru, Karnataka, India</div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container footer-inner">
+
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        Pixel<span class="accent">4</span>Technologies
+      </a>
+      <p class="footer-desc">
+        Practical technology training with certification for students, professionals, and businesses.
+      </p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="DM.html">Digital Marketing</a></li>
+        <li><a href="Staffing.html">IT Staffing</a></li>
+        <li><a href="Consultancy.html">Consultancy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Programmes</h5>
+      <ul>
+        <li><a href="#services">Robotics for Schools</a></li>
+        <li><a href="#services">Cyber Security</a></li>
+        <li><a href="#services">DevOps Training</a></li>
+        <li><a href="#services">Python Training</a></li>
+        <li><a href="#services">ERP &amp; CRM Solutions</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© 2025 Pixel4Technologies. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

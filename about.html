@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>About Us – Pixel4Technologies</title>
+<meta name="description" content="Learn who we are at Pixel4Technologies — our mission, our team, and why businesses and schools trust us for digital marketing, IT staffing, and technology training."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="about.css"/>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+      Pixel<span class="logo-accent">4</span>Technologies
+    </a>
+    <div class="navbar-links">
+      <a href="index.html"       class="nav-link">Home</a>
+      <a href="DM.html"          class="nav-link">Digital Marketing</a>
+      <a href="Staffing.html"    class="nav-link">IT Staffing</a>
+      <a href="Consultancy.html" class="nav-link">Consultancy</a>
+      <a href="about.html"       class="nav-link nav-link--active">About</a>
+      <a href="Contact.html"     class="nav-link">Contact</a>
+    </div>
+    <a href="Contact.html" class="navbar-cta">Get Started</a>
+    <div id="menuBtn">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+</nav>
+
+<div id="menuOverlay"></div>
+
+<div id="mobileMenu">
+  <div id="closeMenu"></div>
+  <a href="index.html"       class="mob-link">Home</a>
+  <a href="DM.html"          class="mob-link">Digital Marketing</a>
+  <a href="Staffing.html"    class="mob-link">IT Staffing</a>
+  <a href="Consultancy.html" class="mob-link">Consultancy</a>
+  <a href="about.html"       class="mob-link mob-active">About</a>
+  <a href="Contact.html"     class="mob-link">Contact</a>
+  <a href="Contact.html" class="mob-cta">Get Started</a>
+</div>
+
+<script>
+  (function () {
+    const menuBtn    = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu  = document.getElementById('closeMenu');
+    const overlay    = document.getElementById('menuOverlay');
+    let menuOpen = false;
+    function openMenu() {
+      menuOpen = true; mobileMenu.style.right = '0';
+      menuBtn.classList.add('active'); overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenuFn() {
+      menuOpen = false; mobileMenu.style.right = '-100%';
+      menuBtn.classList.remove('active'); overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+    menuBtn.addEventListener('click', function () { menuOpen ? closeMenuFn() : openMenu(); });
+    closeMenu.addEventListener('click', closeMenuFn);
+    overlay.addEventListener('click', closeMenuFn);
+    mobileMenu.querySelectorAll('a').forEach(function (l) { l.addEventListener('click', closeMenuFn); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenuFn(); });
+  })();
+</script>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="container hero-content">
+    <div class="hero-badge">🏢 Based in Bengaluru, India</div>
+
+    <h1 class="hero-headline">
+      We Are <span class="accent">Pixel4</span><br/>
+      Technologies
+    </h1>
+
+    <p class="hero-sub">
+      A lean, passionate technology company helping businesses grow through digital marketing, smart IT staffing, certified tech training, and enterprise software solutions — all under one roof.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="Contact.html" class="hero-cta-primary">Work With Us</a>
+      <a href="#story" class="hero-cta-secondary">Our Story ↓</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="stat-num">200+</span><span class="stat-label">Clients Served</span></div>
+      <div class="stat-pill"><span class="stat-num">5+</span><span class="stat-label">Years in Business</span></div>
+      <div class="stat-pill"><span class="stat-num">15+</span><span class="stat-label">Industries</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="floating-card fc-1">🚀 200+ Happy Clients</div>
+    <div class="floating-card fc-2">🌍 Serving 15+ Industries</div>
+  </div>
+</section>
+
+<!-- ═══════════ OUR STORY ═══════════ -->
+<section class="section story-section" id="story">
+  <div class="container story-inner">
+
+    <div class="story-text">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-heading">Built from <span class="accent">Passion &amp; Purpose</span></h2>
+      <p>Pixel4Technologies was founded with a simple belief — businesses of all sizes deserve access to great technology, skilled talent, and real expertise without having to juggle ten different vendors.</p>
+      <p>We started as a small consultancy in Bengaluru and grew organically by doing good work and earning trust — one client at a time. Today we serve 200+ clients across 15+ industries, from school administrators to enterprise sales teams.</p>
+      <p>Our three core verticals — Digital Marketing, IT Staffing, and Consultancy — were each built independently so they stay focused, sharp, and accountable. Whether you need to rank on Google, hire a senior DevOps engineer, or roll out a CRM for your sales floor, we've got the right team for it.</p>
+    </div>
+
+    <div class="story-stats">
+      <div class="sstep">
+        <div class="sstep-year">2019</div>
+        <div class="sstep-label">Founded in Bengaluru</div>
+      </div>
+      <div class="sstep-line"></div>
+      <div class="sstep">
+        <div class="sstep-year">2021</div>
+        <div class="sstep-label">Launched IT Staffing vertical</div>
+      </div>
+      <div class="sstep-line"></div>
+      <div class="sstep">
+        <div class="sstep-year">2023</div>
+        <div class="sstep-label">Launched Robotics &amp; Tech Training</div>
+      </div>
+      <div class="sstep-line"></div>
+      <div class="sstep">
+        <div class="sstep-year">2025</div>
+        <div class="sstep-label">200+ clients, 15+ industries</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ MISSION & VALUES ═══════════ -->
+<section class="section values-section">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">What Drives Us</div>
+    <h2 class="section-heading">Our Mission &amp; <span class="accent">Values</span></h2>
+    <p class="section-sub">Everything we do is rooted in these core beliefs.</p>
+
+    <div class="values-grid">
+
+      <div class="value-card">
+        <div class="val-icon">🎯</div>
+        <h4>Precision</h4>
+        <p>We don't guess. Every campaign, hire, and implementation is backed by data and real expertise.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">🤝</div>
+        <h4>Partnership</h4>
+        <p>We treat every client like a long-term partner, not a transaction. Your growth is our benchmark.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">⚡</div>
+        <h4>Speed</h4>
+        <p>We move fast without cutting corners — quick turnarounds and responsive communication, always.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">🔍</div>
+        <h4>Transparency</h4>
+        <p>No jargon, no hidden costs. You always know what we're doing, why we're doing it, and what it costs.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">📈</div>
+        <h4>Results First</h4>
+        <p>We measure success by your results — not by hours billed or decks presented.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="val-icon">🌱</div>
+        <h4>Continuous Growth</h4>
+        <p>We invest in our own learning so we can always bring our clients the latest thinking and tools.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ WHAT WE DO ═══════════ -->
+<section class="section services-section">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">What We Do</div>
+    <h2 class="section-heading">Three <span class="accent">Focused Verticals</span></h2>
+    <p class="section-sub">Each service operates independently — built to solve a specific problem with focus and depth.</p>
+
+    <div class="svc-grid">
+
+      <div class="svc-card">
+        <div class="svc-icon">📈</div>
+        <h4>Digital Marketing</h4>
+        <p>SEO, paid ads, social media, branding, and web development — everything your business needs to win online.</p>
+        <a href="DM.html" class="sc-link">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">👥</div>
+        <h4>IT Staffing</h4>
+        <p>Domestic and international tech talent placement — developers, DevOps, cybersecurity pros, matched fast.</p>
+        <a href="Staffing.html" class="sc-link">Learn More →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🎓</div>
+        <h4>Consultancy</h4>
+        <p>Certified training in Robotics, Cybersecurity, DevOps, and Python — plus ERP &amp; CRM implementation.</p>
+        <a href="Consultancy.html" class="sc-link">Learn More →</a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<section class="section team-section">
+  <div class="container" style="text-align:center;">
+
+    <div class="section-label">The Team</div>
+    <h2 class="section-heading">People Behind <span class="accent">Pixel4</span></h2>
+    <p class="section-sub">A small, experienced team that punches well above its weight.</p>
+
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-avatar">AK</div>
+        <h4>Arjun Kumar</h4>
+        <span class="team-role">Founder &amp; CEO</span>
+        <p>10+ years in digital strategy and business development. Passionate about building systems that scale.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">PS</div>
+        <h4>Priya Sharma</h4>
+        <span class="team-role">Head of Digital Marketing</span>
+        <p>Former agency lead with expertise in SEO, performance marketing, and brand storytelling.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">RV</div>
+        <h4>Rahul Verma</h4>
+        <span class="team-role">Head of IT Staffing</span>
+        <p>8 years placing tech talent across India and the US. Knows what good engineering looks like.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">NM</div>
+        <h4>Neha Menon</h4>
+        <span class="team-role">Lead Trainer &amp; Consultant</span>
+        <p>Certified in DevOps, cybersecurity, and Python. Makes complex topics simple and practical.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ CTA STRIP ═══════════ -->
+<section class="section cta-strip">
+  <div class="container cta-strip-inner">
+    <div>
+      <h2 class="section-heading">Ready to Work <span class="accent">Together?</span></h2>
+      <p style="color:rgba(255,255,255,0.6); margin-top:10px;">Let's talk about what you need — no pressure, no commitment.</p>
+    </div>
+    <a href="Contact.html" class="hero-cta-primary">Get in Touch →</a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container footer-inner">
+
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        Pixel<span class="accent">4</span>Technologies
+      </a>
+      <p class="footer-desc">
+        Your all-in-one growth partner for digital marketing, IT staffing, and technology consultancy.
+      </p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="DM.html">Digital Marketing</a></li>
+        <li><a href="Staffing.html">IT Staffing</a></li>
+        <li><a href="Consultancy.html">Consultancy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Consultancy</h5>
+      <ul>
+        <li><a href="Consultancy.html">Robotics for Schools</a></li>
+        <li><a href="Consultancy.html">Cyber Security</a></li>
+        <li><a href="Consultancy.html">DevOps Training</a></li>
+        <li><a href="Consultancy.html">Python Training</a></li>
+        <li><a href="Consultancy.html">ERP &amp; CRM Solutions</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© 2025 Pixel4Technologies. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

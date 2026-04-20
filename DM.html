@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Digital Marketing – Pixel4Technologies</title>
+<meta name="description" content="Full-service digital marketing — SEO, paid ads, social media, branding, and web development to dominate your market online."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="DM.css"/>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">Pixel<span class="logo-accent">4</span>Technologies</a>
+    <div class="navbar-links">
+      <a href="index.html"       class="nav-link">Home</a>
+      <a href="DM.html"          class="nav-link nav-link--active">Digital Marketing</a>
+      <a href="Staffing.html"    class="nav-link">IT Staffing</a>
+      <a href="Consultancy.html" class="nav-link">Consultancy</a>
+      <a href="about.html"       class="nav-link">About</a>
+      <a href="Contact.html"     class="nav-link">Contact</a>
+    </div>
+    <a href="Contact.html" class="navbar-cta">Get Started</a>
+    <div id="menuBtn">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+</nav>
+
+<div id="menuOverlay"></div>
+<div id="mobileMenu">
+  <div id="closeMenu"></div>
+  <a href="index.html"       class="mob-link">Home</a>
+  <a href="DM.html"          class="mob-link mob-active">Digital Marketing</a>
+  <a href="Staffing.html"    class="mob-link">IT Staffing</a>
+  <a href="Consultancy.html" class="mob-link">Consultancy</a>
+  <a href="about.html"       class="mob-link">About</a>
+  <a href="Contact.html"     class="mob-link">Contact</a>
+  <a href="Contact.html"     class="mob-cta">Get Started</a>
+</div>
+
+<script>
+(function(){
+  const btn=document.getElementById('menuBtn'),menu=document.getElementById('mobileMenu'),
+        close=document.getElementById('closeMenu'),overlay=document.getElementById('menuOverlay');
+  let open=false;
+  function openM(){open=true;menu.style.right='0';btn.classList.add('active');overlay.classList.add('visible');document.body.style.overflow='hidden';}
+  function closeM(){open=false;menu.style.right='-100%';btn.classList.remove('active');overlay.classList.remove('visible');document.body.style.overflow='';}
+  btn.addEventListener('click',()=>open?closeM():openM());
+  close.addEventListener('click',closeM);
+  overlay.addEventListener('click',closeM);
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+})();
+</script>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="dm-hero">
+  <div class="dm-hero-glow"></div>
+  <div class="dm-hero-grid"></div>
+  <div class="dm-hero-inner">
+    <div class="section-label">Digital Marketing</div>
+    <h1>Your Brand, <span class="accent">Everywhere</span><br/>That Matters.</h1>
+    <p class="dm-hero-sub">We craft data-driven marketing systems that attract the right audience, convert them into customers, and keep them coming back — across every channel that counts.</p>
+    <div class="dm-hero-ctas">
+      <a href="Contact.html" class="cta-primary">Get a Free Strategy Call</a>
+      <a href="#services"    class="cta-ghost">See Our Services ↓</a>
+    </div>
+    <div class="dm-hero-stats">
+      <div class="stat-item"><span class="stat-n">340%</span><span class="stat-l">Avg. ROI Delivered</span></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><span class="stat-n">200+</span><span class="stat-l">Brands Grown</span></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><span class="stat-n">15+</span><span class="stat-l">Industries Served</span></div>
+    </div>
+  </div>
+  <!-- floating badges -->
+  <div class="hero-float f1">📈 +340% ROI</div>
+  <div class="hero-float f2">🎯 Laser-Targeted Ads</div>
+  <div class="hero-float f3">🔍 #1 Google Rankings</div>
+</section>
+
+<!-- ═══════════ SERVICES GRID ═══════════ -->
+<section class="section dm-services" id="services">
+  <div class="container">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-heading">Full-Spectrum <span class="accent">Digital Marketing</span></h2>
+    <p class="section-sub">Everything you need to dominate your market — under one roof, executed by specialists.</p>
+
+    <div class="services-grid">
+
+      <!-- SEO -->
+      <div class="svc-card">
+        <div class="svc-icon">🔍</div>
+        <h3>Search Engine Optimisation</h3>
+        <p>Rank higher, get found faster. We audit, optimise, and build authority so your ideal customers discover you first.</p>
+      </div>
+
+      <!-- PPC -->
+      <div class="svc-card">
+        <div class="svc-icon">🎯</div>
+        <h3>Pay-Per-Click Advertising</h3>
+        <p>Every rupee measured, every click intentional. We build and manage campaigns that convert — not just click.</p>
+      </div>
+
+      <!-- Social Media -->
+      <div class="svc-card">
+        <div class="svc-icon">📱</div>
+        <h3>Social Media Marketing</h3>
+        <p>Build a brand people follow, engage, and buy from. We manage your presence across every major platform.</p>
+      </div>
+
+      <!-- Branding -->
+      <div class="svc-card">
+        <div class="svc-icon">✨</div>
+        <h3>Branding & Identity</h3>
+        <p>Your brand is more than a logo. We craft a complete visual and messaging identity that stands out and sticks.</p>
+      </div>
+
+      <!-- Web Development -->
+      <div class="svc-card">
+        <div class="svc-icon">💻</div>
+        <h3>Web Development</h3>
+        <p>Fast, beautiful, conversion-optimised websites that work as your 24/7 sales machine — not just a digital brochure.</p>
+      </div>
+
+      <!-- Content Marketing -->
+      <div class="svc-card">
+        <div class="svc-icon">✍️</div>
+        <h3>Content Marketing</h3>
+        <p>Educate, engage, and convert your audience with content that ranks on Google and resonates with real people.</p>
+      </div>
+
+      <!-- Email Marketing -->
+      <div class="svc-card">
+        <div class="svc-icon">📧</div>
+        <h3>Email Marketing & Automation</h3>
+        <p>Your most profitable channel, done right. Automated sequences that nurture leads and drive repeat revenue.</p>
+      </div>
+
+      <!-- Analytics -->
+      <div class="svc-card">
+        <div class="svc-icon">📊</div>
+        <h3>Analytics & Performance</h3>
+        <p>Data you can actually act on. We set up tracking, build dashboards, and turn numbers into clear next steps.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section class="section dm-process dark">
+  <div class="container">
+    <h2 class="section-heading center">How We Help You Grow</h2>
+
+    <div class="timeline">
+
+      <!-- Line -->
+      <div class="timeline-line"></div>
+
+      <!-- Step 1 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🔍</div>
+          <h3>Find What’s Killing Your Sales</h3>
+          <p>Low footfall? Empty tables during peak hours? We analyse your online presence, competitors, and customer journey to identify exactly where you're losing customers.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🔥</div>
+          <h3>Create Offers People Can’t Ignore</h3>
+          <p>We design irresistible combos, discounts, and campaigns that make customers choose your café over others — turning interest into actual walk-ins.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">📢</div>
+          <h3>Bring Customers to Your Door</h3>
+          <p>Using Google, Instagram, and targeted ads, we put your business in front of people actively looking for places like yours — driving consistent daily traffic.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">🔁</div>
+          <h3>Turn First-Time Visitors into Regulars</h3>
+          <p>We set up WhatsApp, email, and loyalty campaigns to bring customers back again and again — increasing your repeat sales without extra ad spend.</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="icon">📈</div>
+          <h3>Track, Improve & Scale</h3>
+          <p>We monitor what’s working, optimise campaigns, and scale the best-performing strategies — helping you grow revenue month after month.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS — DUAL MARQUEE ═══════════ -->
+<section class="section dm-testimonials">
+  <div class="container">
+    <div class="section-label">Client Stories</div>
+    <h2 class="section-heading">What Our <span class="accent">Clients</span> Say</h2>
+    <p class="section-sub">Real results from real businesses. Here's what happened when strategy met execution.</p>
+  </div>
+
+  <!-- Row 1 — scrolls left -->
+  <div class="marquee-outer">
+    <div class="marquee-row row-left">
+      <!-- card set (duplicated below for seamless loop) -->
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our organic traffic tripled in 4 months. NexaCore's SEO strategy was nothing short of surgical — every keyword they targeted converted."</p>
+        <div class="tcard-author"><div class="tcard-av">RK</div><div><div class="tcard-name">Rohit Khanna</div><div class="tcard-role">CEO, TechVision Inc.</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We went from zero social presence to 50,000+ views a month. The content strategy was on point from day one."</p>
+        <div class="tcard-author"><div class="tcard-av">MS</div><div><div class="tcard-name">Maya Schmid</div><div class="tcard-role">Founder, GrowthEdge</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Running Google Ads ourselves was burning money. Pixel4 took over and we saw a 4x return on ad spend within 60 days. Phenomenal team."</p>
+        <div class="tcard-author"><div class="tcard-av">PD</div><div><div class="tcard-name">Priya Desai</div><div class="tcard-role">Marketing Head, SwiftHire</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The rebrand they delivered completely transformed how our customers perceive us. Revenue is up 28% since the launch."</p>
+        <div class="tcard-author"><div class="tcard-av">AK</div><div><div class="tcard-name">Arjun Kumar</div><div class="tcard-role">Director, BrandPulse</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Email open rates went from 12% to 41% after the automation overhaul. The leads coming through are warm and ready to buy."</p>
+        <div class="tcard-author"><div class="tcard-av">SN</div><div><div class="tcard-name">Sneha Nair</div><div class="tcard-role">CEO, FlowStack</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Closed a ₹40L commercial deal directly from a LinkedIn campaign they ran for us. ROI on their services is off the charts."</p>
+        <div class="tcard-author"><div class="tcard-av">SS</div><div><div class="tcard-name">Syed Sikandar</div><div class="tcard-role">Sales Manager, RealtyCo</div></div></div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Our organic traffic tripled in 4 months. NexaCore's SEO strategy was nothing short of surgical — every keyword they targeted converted."</p>
+        <div class="tcard-author"><div class="tcard-av">RK</div><div><div class="tcard-name">Rohit Khanna</div><div class="tcard-role">CEO, TechVision Inc.</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"We went from zero social presence to 50,000+ views a month. The content strategy was on point from day one."</p>
+        <div class="tcard-author"><div class="tcard-av">MS</div><div><div class="tcard-name">Maya Schmid</div><div class="tcard-role">Founder, GrowthEdge</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Running Google Ads ourselves was burning money. Pixel4 took over and we saw a 4x return on ad spend within 60 days. Phenomenal team."</p>
+        <div class="tcard-author"><div class="tcard-av">PD</div><div><div class="tcard-name">Priya Desai</div><div class="tcard-role">Marketing Head, SwiftHire</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The rebrand they delivered completely transformed how our customers perceive us. Revenue is up 28% since the launch."</p>
+        <div class="tcard-author"><div class="tcard-av">AK</div><div><div class="tcard-name">Arjun Kumar</div><div class="tcard-role">Director, BrandPulse</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Email open rates went from 12% to 41% after the automation overhaul. The leads coming through are warm and ready to buy."</p>
+        <div class="tcard-author"><div class="tcard-av">SN</div><div><div class="tcard-name">Sneha Nair</div><div class="tcard-role">CEO, FlowStack</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Closed a ₹40L commercial deal directly from a LinkedIn campaign they ran for us. ROI on their services is off the charts."</p>
+        <div class="tcard-author"><div class="tcard-av">SS</div><div><div class="tcard-name">Syed Sikandar</div><div class="tcard-role">Sales Manager, RealtyCo</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 — scrolls right -->
+  <div class="marquee-outer">
+    <div class="marquee-row row-right">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Their web development team delivered a landing page that converted at 18%. Our previous agency's best was 4%. Night and day difference."</p>
+        <div class="tcard-author"><div class="tcard-av">VM</div><div><div class="tcard-name">Vikram Mehta</div><div class="tcard-role">Founder, LaunchPad SaaS</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Generated 7,000 leads in 90 days and doubled our demo bookings. Pixel4 didn't just promise results — they delivered them consistently."</p>
+        <div class="tcard-author"><div class="tcard-av">VD</div><div><div class="tcard-name">Volodymyr Dybenko</div><div class="tcard-role">CEO, Salee</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Best investment we made this year. Our brand now looks and feels premium — and clients tell us that before we even pitch."</p>
+        <div class="tcard-author"><div class="tcard-av">AM</div><div><div class="tcard-name">Arjun Menon</div><div class="tcard-role">Principal, DPS International</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Paid advertising doubled our revenue in 3 months. We never realised how much we were leaving on the table until Pixel4 showed us the data."</p>
+        <div class="tcard-author"><div class="tcard-av">AS</div><div><div class="tcard-name">Amber Staynings</div><div class="tcard-role">CEO, Hurricane HL Ltd</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"100+ webinar registrants in under 72 hours — no ad spend, just organic outreach strategy. Absolutely incredible execution."</p>
+        <div class="tcard-author"><div class="tcard-av">TF</div><div><div class="tcard-name">Ted Fluck</div><div class="tcard-role">IGTD Philips</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Their content and copywriting is top-tier. Every piece they produce is on-brand, high quality, and actually drives engagement."</p>
+        <div class="tcard-author"><div class="tcard-av">HH</div><div><div class="tcard-name">Helge Hoffmann</div><div class="tcard-role">Creative Director, Ogilvy</div></div></div>
+      </div>
+      <!-- Duplicate -->
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Their web development team delivered a landing page that converted at 18%. Our previous agency's best was 4%. Night and day difference."</p>
+        <div class="tcard-author"><div class="tcard-av">VM</div><div><div class="tcard-name">Vikram Mehta</div><div class="tcard-role">Founder, LaunchPad SaaS</div></div></div>
+      </div>
+      <div class="tcard tcard-highlight">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Generated 7,000 leads in 90 days and doubled our demo bookings. Pixel4 didn't just promise results — they delivered them consistently."</p>
+        <div class="tcard-author"><div class="tcard-av">VD</div><div><div class="tcard-name">Volodymyr Dybenko</div><div class="tcard-role">CEO, Salee</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Best investment we made this year. Our brand now looks and feels premium — and clients tell us that before we even pitch."</p>
+        <div class="tcard-author"><div class="tcard-av">AM</div><div><div class="tcard-name">Arjun Menon</div><div class="tcard-role">Principal, DPS International</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Paid advertising doubled our revenue in 3 months. We never realised how much we were leaving on the table until Pixel4 showed us the data."</p>
+        <div class="tcard-author"><div class="tcard-av">AS</div><div><div class="tcard-name">Amber Staynings</div><div class="tcard-role">CEO, Hurricane HL Ltd</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"100+ webinar registrants in under 72 hours — no ad spend, just organic outreach strategy. Absolutely incredible execution."</p>
+        <div class="tcard-author"><div class="tcard-av">TF</div><div><div class="tcard-name">Ted Fluck</div><div class="tcard-role">IGTD Philips</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Their content and copywriting is top-tier. Every piece they produce is on-brand, high quality, and actually drives engagement."</p>
+        <div class="tcard-author"><div class="tcard-av">HH</div><div><div class="tcard-name">Helge Hoffmann</div><div class="tcard-role">Creative Director, Ogilvy</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BANNER ═══════════ -->
+<section class="section dm-cta">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-box-left">
+        <div class="section-label">Ready to Grow?</div>
+        <h2>Let's Build Your <span class="accent">Growth Engine</span></h2>
+        <p>Book a free 30-minute strategy call. We'll audit your current digital presence and show you exactly where the biggest opportunities are.</p>
+        <ul class="cta-promises">
+          <li>✓ No commitment, no pressure</li>
+          <li>✓ Custom roadmap for your business</li>
+          <li>✓ Real strategies, not generic advice</li>
+        </ul>
+        <a href="Contact.html" class="cta-primary">Book Free Strategy Call</a>
+      </div>
+      <div class="cta-box-right">
+        <div class="cta-stat-card"><span class="cta-big">340%</span><span>Average ROI for our clients</span></div>
+        <div class="cta-stat-card"><span class="cta-big">60</span><span>Days to first measurable results</span></div>
+        <div class="cta-stat-card"><span class="cta-big">98%</span><span>Client satisfaction rate</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Nexa<span class="accent">Core</span></a>
+      <p class="footer-desc">Your all-in-one growth partner for digital marketing, IT staffing, and expert consultancy.</p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="YouTube">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="DM.html">Digital Marketing</a></li>
+        <li><a href="Staffing.html">IT Staffing</a></li>
+        <li><a href="Consultancy.html">Consultancy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>DM Services</h5>
+      <ul>
+        <li><a href="DM.html">SEO</a></li>
+        <li><a href="DM.html">Paid Advertising</a></li>
+        <li><a href="DM.html">Social Media</a></li>
+        <li><a href="DM.html">Branding</a></li>
+        <li><a href="DM.html">Web Development</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>© 2025 NexaCore. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+<script>
+const items = document.querySelectorAll('.timeline-item');
+
+function showOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  items.forEach(item => {
+    const boxTop = item.getBoundingClientRect().top;
+
+    if (boxTop < triggerBottom) {
+      item.classList.add('show');
+    }
+  });
+}
+
+window.addEventListener('scroll', showOnScroll);
+showOnScroll();
+</script>
+</html>
