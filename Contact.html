@@ -105,161 +105,49 @@
 
 <!-- ═══════════ CONTACT MAIN ═══════════ -->
 <section class="section contact-main">
-  <div class="container contact-cols">
+  <div class="container">
 
-    <!-- Left: info -->
-    <div class="contact-info">
-
+    <div class="contact-main-header">
       <div class="section-label">Reach Us</div>
       <h2 class="section-heading">Get in <span class="accent">Touch</span></h2>
       <p class="contact-intro">
-        Pick the channel that works best for you. We're available Monday to Saturday, 9 AM – 7 PM IST.
+        Pick the channel that works best for you. We're here whenever you need us — no waiting, no delays.
       </p>
-
-      <div class="contact-details">
-
-        <div class="cd-item">
-          <div class="cd-icon">📞</div>
-          <div>
-            <strong>Phone</strong>
-            <span>+91 98765 43210</span>
-            <a href="tel:+919876543210" class="cd-link">Call Now →</a>
-          </div>
-        </div>
-
-        <div class="cd-item">
-          <div class="cd-icon">💬</div>
-          <div>
-            <strong>WhatsApp</strong>
-            <span>Chat with us instantly</span>
-            <a href="https://wa.me/919876543210" target="_blank" class="cd-link">Open Chat →</a>
-          </div>
-        </div>
-
-        <div class="cd-item">
-          <div class="cd-icon">✉️</div>
-          <div>
-            <strong>Email</strong>
-            <span>hello@pixel4tech.in</span>
-            <a href="mailto:hello@pixel4tech.in" class="cd-link">Send Email →</a>
-          </div>
-        </div>
-
-        <div class="cd-item">
-          <div class="cd-icon">📍</div>
-          <div>
-            <strong>Office</strong>
-            <span>Bengaluru, Karnataka, India</span>
-          </div>
-        </div>
-
+      <div class="availability-badge">
+        <span class="avail-dot"></span>
+        Available 24/7 — We never close
       </div>
-
-      <div class="office-hours">
-        <div class="oh-label">Office Hours</div>
-        <div class="oh-row"><span>Monday – Friday</span><span>9:00 AM – 7:00 PM IST</span></div>
-        <div class="oh-row"><span>Saturday</span><span>10:00 AM – 4:00 PM IST</span></div>
-        <div class="oh-row"><span>Sunday</span><span>Closed</span></div>
-      </div>
-
     </div>
 
-    <!-- Right: form -->
-    <div class="contact-form-wrap">
-      <div class="form-header">
-        <h3>Send Us a Message</h3>
-        <p>We'll get back to you within 24 hours.</p>
-      </div>
+    <div class="contact-cards-row">
 
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="Arjun" required/>
-          </div>
-          <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Kumar" required/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="arjun@company.com" required/>
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="+91 98765 43210"/>
-        </div>
-
-        <div class="form-group">
-          <label for="service">What are you interested in?</label>
-          <select id="service">
-            <option value="" disabled selected>Select a service</option>
-            <option>Digital Marketing</option>
-            <option>IT Staffing</option>
-            <option>Robotics Training</option>
-            <option>Cyber Security Training</option>
-            <option>DevOps Training</option>
-            <option>Python Training</option>
-            <option>ERP &amp; CRM Solutions</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" rows="4" placeholder="Tell us a little about what you need..."></textarea>
-        </div>
-
-        <button type="submit" class="form-submit">Send Message →</button>
-
-        <p class="form-note">We respect your privacy. No spam, ever.</p>
-
-      </form>
-
-      <div class="form-success" id="formSuccess">
-        <div class="success-icon">✅</div>
-        <h4>Message Sent!</h4>
-        <p>Thanks for reaching out. We'll be in touch within 24 hours.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════ QUICK CHANNELS ═══════════ -->
-<section class="section quick-section">
-  <div class="container" style="text-align:center;">
-
-    <div class="section-label">Quick Reach</div>
-    <h2 class="section-heading">Prefer a <span class="accent">Direct Channel?</span></h2>
-
-    <div class="quick-grid">
-
-      <a href="tel:+919876543210" class="quick-card">
-        <div class="qc-icon">📞</div>
-        <h4>Call Us</h4>
+      <div class="contact-channel-card">
+        <div class="cc-icon-wrap">📞</div>
+        <h4>Phone</h4>
         <p>+91 98765 43210</p>
-        <span class="qc-action">Tap to Call</span>
-      </a>
+        <a href="tel:+919876543210" class="cc-cta">Call Now →</a>
+      </div>
 
-      <a href="https://wa.me/919876543210" target="_blank" class="quick-card quick-featured">
-        <div class="qc-icon">💬</div>
+      <div class="contact-channel-card contact-channel-featured">
+        <div class="cc-icon-wrap">💬</div>
         <h4>WhatsApp</h4>
-        <p>Fastest way to reach us</p>
-        <span class="qc-action">Start Chat</span>
-      </a>
+        <p>Fastest way to reach us — chat instantly</p>
+        <a href="https://wa.me/919876543210" target="_blank" class="cc-cta">Open Chat →</a>
+      </div>
 
-      <a href="mailto:hello@pixel4tech.in" class="quick-card">
-        <div class="qc-icon">✉️</div>
-        <h4>Email Us</h4>
+      <div class="contact-channel-card">
+        <div class="cc-icon-wrap">✉️</div>
+        <h4>Email</h4>
         <p>hello@pixel4tech.in</p>
-        <span class="qc-action">Send Email</span>
-      </a>
+        <a href="mailto:hello@pixel4tech.in" class="cc-cta">Send Email →</a>
+      </div>
+
+      <div class="contact-channel-card">
+        <div class="cc-icon-wrap">📍</div>
+        <h4>Office</h4>
+        <p>Bengaluru, Karnataka, India</p>
+        <span class="cc-cta cc-cta--muted">Find Us</span>
+      </div>
 
     </div>
 
@@ -277,12 +165,12 @@
       <p class="footer-desc">
         Your all-in-one growth partner for digital marketing, IT staffing, and technology consultancy.
       </p>
-      <div class="social-links">
+      <!-- <div class="social-links">
         <a href="#" aria-label="LinkedIn">in</a>
         <a href="#" aria-label="Twitter">𝕏</a>
         <a href="#" aria-label="Instagram">ig</a>
         <a href="#" aria-label="YouTube">yt</a>
-      </div>
+      </div> -->
     </div>
 
     <div class="footer-col">
@@ -323,14 +211,6 @@
     </div>
   </div>
 </footer>
-
-<script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.querySelector('.contact-form').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'flex';
-  }
-</script>
 
 </body>
 </html>
