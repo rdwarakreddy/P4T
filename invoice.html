@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice Generator – Pixel4 Technologies</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --ink: #1a1a2e;
+            --accent: #c0392b;
+            --accent-light: #fdf0ee;
+            --rule: #e8e4df;
+            --soft: #f7f6f2;
+            --white: #ffffff;
+            --muted: #7c7872;
+            --border: #ddd9d3;
+        }
+
+        #invoice {
+            background: white;
+        }
+
+        body {
+            background: white;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #dedad2;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 30px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── TOOLBAR ── */
+        .toolbar {
+            width: 100%;
+            max-width: 880px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--ink);
+        }
+
+        .toolbar-title span {
+            color: var(--accent);
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            padding: 11px 22px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .05em;
+            cursor: pointer;
+            border-radius: 3px;
+            text-transform: uppercase;
+            transition: all .18s;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #fff;
+            box-shadow: 0 3px 14px rgba(26, 26, 46, .2);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--ink);
+        }
+
+        .btn-outline:hover {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ── EDIT HINT ── */
+        .edit-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 880px;
+        }
+
+        .edit-hint svg {
+            width: 13px;
+            height: 13px;
+            fill: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ── INVOICE CARD ── */
+        #invoice {
+            width: 100%;
+            max-width: 880px;
+            background: var(--white);
+            box-shadow: 0 10px 60px rgba(26, 26, 46, .14);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* ── HEADER ── */
+        .inv-header {
+            background: var(--ink);
+            padding: 32px 44px 28px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .inv-logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Logo upload area */
+        .logo-upload-area {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .logo-upload-area img#logoPreview {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .logo-placeholder {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo-upload-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity .2s;
+            gap: 4px;
+        }
+
+        .logo-upload-area:hover .logo-upload-overlay {
+            opacity: 1;
+        }
+
+        .logo-upload-overlay svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        .logo-upload-overlay span {
+            font-size: 9px;
+            color: #fff;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        #logoFileInput {
+            display: none;
+        }
+
+        .company-name h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .company-name p {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .5);
+            margin-top: 4px;
+            line-height: 1.85;
+            font-weight: 300;
+        }
+
+        .doc-type {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: rgba(255, 255, 255, .1);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        /* ── EDITABLE ── */
+        [contenteditable] {
+            outline: none;
+            cursor: text;
+            border-radius: 2px;
+            transition: background .15s, box-shadow .15s;
+            min-width: 20px;
+            display: inline-block;
+        }
+
+        .le:hover {
+            background: rgba(26, 26, 46, .04) !important;
+        }
+
+        .le:focus {
+            background: rgba(26, 26, 46, .06) !important;
+            box-shadow: 0 0 0 1.5px rgba(192, 57, 43, .5) !important;
+        }
+
+        .accent-line {
+            height: 3.5px;
+            background: var(--accent);
+        }
+
+        /* ── META ── */
+        .inv-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .meta-block {
+            padding: 22px 44px;
+        }
+
+        .meta-block+.meta-block {
+            border-left: 1px solid var(--rule);
+        }
+
+        .meta-label {
+            font-size: 9px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .meta-sub {
+            font-size: 11.5px;
+            color: var(--muted);
+            margin-top: 3px;
+            font-weight: 300;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .meta-row label {
+            font-size: 10.5px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .meta-row [contenteditable] {
+            font-size: 11.5px;
+            color: var(--ink);
+            padding: 1px 3px;
+        }
+
+        /* ── SUBJECT ── */
+        .inv-subject {
+            padding: 13px 44px;
+            background: var(--soft);
+            border-bottom: 1px solid var(--rule);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .subj-label {
+            font-size: 9px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ── TABLE ── */
+        .inv-table-wrap {
+            padding: 0 44px;
+        }
+
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0 8px;
+        }
+
+        .tbl-section-label {
+            font-size: 9px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: .04em;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all .18s;
+            box-shadow: 0 2px 10px rgba(192, 57, 43, .25);
+        }
+
+        .btn-add:hover {
+            background: #a93226;
+            transform: translateY(-1px);
+        }
+
+        .btn-add svg {
+            width: 14px;
+            height: 14px;
+            fill: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: var(--soft);
+        }
+
+        thead th {
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            padding: 10px 10px;
+            text-align: left;
+            border-bottom: 2px solid var(--rule);
+        }
+
+        thead th.r {
+            text-align: right;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--rule);
+            transition: background .1s;
+        }
+
+        tbody tr:hover {
+            background: #faf9f6;
+        }
+
+        tbody td {
+            padding: 13px 10px;
+            font-size: 13px;
+            color: var(--ink);
+            vertical-align: middle;
+        }
+
+        tbody td.idx {
+            color: var(--muted);
+            font-weight: 500;
+            width: 32px;
+            font-size: 11.5px;
+        }
+
+        tbody td.r {
+            text-align: right;
+        }
+
+        .td-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .item-main {
+            font-weight: 500;
+        }
+
+        .item-note {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .item-note[contenteditable]:empty:before {
+            content: 'note (optional)';
+            color: #ccc;
+            font-style: italic;
+        }
+
+        .btn-del {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ccc;
+            padding: 4px;
+            border-radius: 2px;
+            transition: color .15s, background .15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-del:hover {
+            color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .btn-del svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* ── TOTALS ── */
+        .inv-totals-area {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px 44px 10px;
+        }
+
+        .totals-box {
+            min-width: 290px;
+        }
+
+        .t-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--rule);
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .t-row .t-val {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .gst-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gst-input {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+        }
+
+        .gst-input input {
+            width: 48px;
+            padding: 3px 6px;
+            border: 1.5px solid var(--border);
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: 'DM Sans', sans-serif;
+            text-align: center;
+            outline: none;
+            transition: border-color .15s;
+            color: var(--ink);
+            background: var(--white);
+        }
+
+        .gst-input input:focus {
+            border-color: var(--accent);
+        }
+
+        .t-row.grand {
+            background: transparent;
+            /* removed blue background */
+            padding: 12px 0;
+            border-bottom: none;
+            margin-top: 8px;
+        }
+
+        .t-row.grand .t-label {
+            color: var(--ink);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .10em;
+        }
+
+        .t-row.grand .t-val {
+            color: #1a4ed8;
+            /* blue text */
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* ── WORDS ── */
+        .inv-words {
+            margin: 4px 44px 24px;
+            padding: 12px 16px;
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            border-radius: 2px;
+        }
+
+        .w-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .w-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink);
+            font-style: italic;
+        }
+
+        /* ── FOOTER ── */
+        .inv-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid var(--rule);
+        }
+
+        .footer-block {
+            padding: 22px 44px;
+        }
+
+        .footer-block+.footer-block {
+            border-left: 1px solid var(--rule);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .f-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .f-text {
+            font-size: 12px;
+            color: var(--ink);
+            line-height: 1.75;
+            font-weight: 300;
+        }
+
+        /* Signature upload */
+        .sig-upload-area {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sig-img-wrap {
+            width: 160px;
+            height: 60px;
+            border-bottom: 1px solid var(--ink);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+
+        .sig-img-wrap img#sigPreview {
+            max-width: 150px;
+            max-height: 56px;
+            object-fit: contain;
+            display: none;
+        }
+
+        .sig-placeholder-line {
+            width: 160px;
+            height: 1px;
+            background: var(--ink);
+        }
+
+        .sig-upload-hint {
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-align: center;
+            transition: color .15s;
+        }
+
+        .sig-upload-area:hover .sig-upload-hint {
+            color: var(--accent);
+        }
+
+        .sig-name-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            text-align: center;
+        }
+
+        .sig-sub-text {
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            font-weight: 500;
+        }
+
+        #sigFileInput {
+            display: none;
+        }
+
+        /* ── BOTTOM BAND ── */
+        .inv-bottom {
+            background: var(--soft);
+            padding: 11px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--rule);
+        }
+
+        .bottom-contact {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .bottom-contact strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .bottom-tagline {
+            font-size: 11px;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media print {
+
+            .toolbar,
+            .edit-hint,
+            .btn-add,
+            .btn-del,
+            .tbl-section-label,
+            .logo-upload-overlay,
+            .sig-upload-hint {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="edit-hint">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.21a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+        </svg>
+        Click any text to edit · Hover the logo or signature to upload an image
+    </div>
+
+    <div class="toolbar">
+        <div class="toolbar-title">Invoice <span>Generator</span></div>
+        <div class="toolbar-actions">
+            <button class="btn btn-outline" onclick="newInvoice()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                </svg>
+                New Invoice
+            </button>
+            <button class="btn btn-primary" id="dlBtn" onclick="downloadPDF()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
+                </svg>
+                Download PDF
+            </button>
+        </div>
+    </div>
+
+    <div id="invoice">
+
+        <!-- ── HEADER ── -->
+        <div class="inv-header">
+            <div class="inv-logo-wrap">
+
+                <!-- Logo upload -->
+                <div class="logo-upload-area" onclick="document.getElementById('logoFileInput').click()"
+                    title="Click to upload logo">
+                    <div class="logo-placeholder" id="logoPlaceholder">P4</div>
+                    <img id="logoPreview" src="" alt="Logo" style="display:none;" />
+                    <div class="logo-upload-overlay">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                        </svg>
+                        <span>Change</span>
+                    </div>
+                </div>
+                <input type="file" id="logoFileInput" accept="image/*" onchange="handleLogoUpload(event)" />
+
+                <div class="company-name">
+                    <h1>Pixel4 Technologies</h1>
+                    <p>Bangalore Karnataka, India<br>8150061616 ·
+                        info@pixel4technologies.com<br>www.pixel4technologies.com</p>
+                </div>
+            </div>
+            <div class="doc-type">Invoice</div>
+        </div>
+
+        <div class="accent-line"></div>
+
+        <!-- ── META ── -->
+        <div class="inv-meta">
+            <div class="meta-block">
+                <div class="meta-label">Bill To</div>
+                <div class="meta-value"><span class="le" contenteditable spellcheck="false" data-field="billTo">Cloud
+                        Zenix</span></div>
+                <div class="meta-sub"><span class="le" contenteditable spellcheck="false"
+                        data-field="billAddress">Address / GSTIN (optional)</span></div>
+            </div>
+            <div class="meta-block">
+                <div class="meta-label">Reference</div>
+                <div class="meta-value" style="font-size:14px;"><span class="le" contenteditable spellcheck="false"
+                        data-field="ref"># P4/26-27/015</span></div>
+                <div class="meta-row">
+                    <label>Issued:</label>
+                    <span class="le" contenteditable spellcheck="false" data-field="issued">23/04/2026</span>
+                    <label style="margin-left:8px;">Due:</label>
+                    <span class="le" contenteditable spellcheck="false" data-field="due">—</span>
+                </div>
+                <div class="meta-row" style="margin-top:4px;">
+                    <label>PO / Ref:</label>
+                    <span class="le" contenteditable spellcheck="false" data-field="po">—</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SUBJECT ── -->
+        <div class="inv-subject">
+            <span class="subj-label">Subject</span>
+            <span class="le" contenteditable spellcheck="false" style="font-size:13px;font-weight:500;"
+                data-field="subject">Quotation for Laptop Battery</span>
+        </div>
+
+        <!-- ── TABLE ── -->
+        <div class="inv-table-wrap">
+            <div class="table-toolbar">
+                <span class="tbl-section-label">Line Items</span>
+                <button class="btn-add" onclick="addRow()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                    </svg>
+                    Add Item
+                </button>
+            </div>
+            <table id="tbl">
+                <thead>
+                    <tr>
+                        <th style="width:32px;">#</th>
+                        <th>Item &amp; Description</th>
+                        <th class="r" style="width:60px;">Qty</th>
+                        <th class="r" style="width:82px;">Rate (&#8377;)</th>
+                        <th class="r" style="width:92px;">Amount (&#8377;)</th>
+                        <th style="width:30px;"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+
+        <!-- ── TOTALS ── -->
+        <div class="inv-totals-area">
+            <div class="totals-box">
+                <div class="t-row">
+                    <span class="t-label">Sub Total</span>
+                    <span class="t-val" id="subTotal">&#8377;0.00</span>
+                </div>
+                <div class="t-row">
+                    <span class="t-label">
+                        <span class="gst-wrap">GST
+                            <span class="gst-input">
+                                <input type="number" id="gstPct" value="18" min="0" max="100" step="0.5"
+                                    oninput="recalc()">
+                                <span>%</span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="t-val" id="gstAmt">&#8377;0.00</span>
+                </div>
+                <div class="t-row grand">
+                    <span class="t-label">Total</span>
+                    <span class="t-val" id="grandTotal">&#8377;0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WORDS ── -->
+        <div class="inv-words">
+            <div class="w-label">Total in Words</div>
+            <div class="w-text" id="amtWords">Zero Only</div>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <div class="inv-footer">
+            <div class="footer-block">
+                <div class="f-label">Notes</div>
+                <div class="f-text le" contenteditable spellcheck="false" data-field="notes">Looking forward for your
+                    business.</div>
+                <div class="f-label" style="margin-top:16px;">Terms &amp; Conditions</div>
+                <div class="f-text le" contenteditable spellcheck="false" data-field="terms">Warranty limited to
+                    manufacturing defects only; no liability for physical damage, misuse.</div>
+            </div>
+            <div class="footer-block">
+                <!-- Signature upload -->
+                <div class="sig-upload-area" onclick="document.getElementById('sigFileInput').click()"
+                    title="Click to upload signature">
+                    <div class="sig-img-wrap">
+                        <img id="sigPreview" src="" alt="Signature" />
+                    </div>
+                    <div class="sig-upload-hint">↑ Click to upload signature image</div>
+                </div>
+                <input type="file" id="sigFileInput" accept="image/*" onchange="handleSigUpload(event)" />
+                <div class="sig-name-text le" contenteditable spellcheck="false" data-field="sigName">Authorized
+                    Signatory</div>
+                <div class="sig-sub-text">Pixel4 Technologies</div>
+            </div>
+        </div>
+
+        <!-- ── BOTTOM BAND ── -->
+        <div class="inv-bottom">
+            <div class="bottom-contact"><strong>Pixel4 Technologies</strong> · 8150061616 · info@pixel4technologies.com
+            </div>
+            <div class="bottom-tagline">Thank you for your business.</div>
+        </div>
+
+    </div><!-- /#invoice -->
+
+    <script>
+        // ── Image state ──────────────────────────────────────────────────────────────
+        let logoBase64 = null;  // stored as data URL
+        let sigBase64 = null;
+
+        function handleLogoUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                logoBase64 = ev.target.result;
+                document.getElementById('logoPreview').src = logoBase64;
+                document.getElementById('logoPreview').style.display = 'block';
+                document.getElementById('logoPlaceholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleSigUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                sigBase64 = ev.target.result;
+                const img = document.getElementById('sigPreview');
+                img.src = sigBase64;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ── Row management ───────────────────────────────────────────────────────────
+        let rowId = 0;
+
+        function addRow(desc, note, qty, rate) {
+            rowId++;
+            const tbody = document.getElementById('tbody');
+            const idx = tbody.rows.length + 1;
+            const tr = document.createElement('tr');
+            tr.dataset.rid = rowId;
+            const q = qty !== undefined ? qty : 1;
+            const r = rate !== undefined ? rate : 0;
+            tr.innerHTML = `
+    <td class="idx">${idx}</td>
+    <td><div class="td-inner">
+      <span class="item-main le" contenteditable spellcheck="false" data-field="desc">${desc || 'Item description'}</span>
+      <span class="item-note le" contenteditable spellcheck="false" data-field="note">${note || ''}</span>
+    </div></td>
+    <td class="r"><span class="le ce-qty" contenteditable spellcheck="false">${q}</span></td>
+    <td class="r"><span class="le ce-rate" contenteditable spellcheck="false">${r}</span></td>
+    <td class="r ce-amt">&#8377;${fmtN(parseFloat(q) * parseFloat(r))}</td>
+    <td class="r"><button class="btn-del" title="Remove" onclick="removeRow(this)">
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button></td>`;
+            tr.querySelectorAll('[contenteditable]').forEach(el => {
+                el.addEventListener('input', recalc);
+                el.addEventListener('blur', recalc);
+            });
+            tbody.appendChild(tr);
+            reindex(); recalc();
+        }
+
+        function removeRow(btn) { btn.closest('tr').remove(); reindex(); recalc(); }
+
+        function reindex() {
+            document.querySelectorAll('#tbody tr').forEach((tr, i) => { tr.querySelector('.idx').textContent = i + 1; });
+        }
+
+        // ── Maths ────────────────────────────────────────────────────────────────────
+        function fmtN(n) {
+            if (isNaN(n)) return '0.00';
+            return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        function rawN(el) {
+            const v = parseFloat((el.textContent || '').replace(/[^0-9.]/g, ''));
+            return isNaN(v) ? 0 : v;
+        }
+
+        function recalc() {
+            let sub = 0;
+            document.querySelectorAll('#tbody tr').forEach(tr => {
+                const q = rawN(tr.querySelector('.ce-qty'));
+                const r = rawN(tr.querySelector('.ce-rate'));
+                const a = q * r;
+                tr.querySelector('.ce-amt').textContent = '\u20B9' + fmtN(a);
+                sub += a;
+            });
+            const pct = parseFloat(document.getElementById('gstPct').value) || 0;
+            const gst = sub * (pct / 100);
+            const grand = sub + gst;
+            document.getElementById('subTotal').textContent = '\u20B9' + fmtN(sub);
+            document.getElementById('gstAmt').textContent = '\u20B9' + fmtN(gst);
+            document.getElementById('grandTotal').textContent = '\u20B9' + fmtN(grand);
+            document.getElementById('amtWords').textContent = 'Indian Rupee ' + n2w(Math.round(grand)) + ' Only';
+        }
+
+        // ── Number to words ──────────────────────────────────────────────────────────
+        function n2w(n) {
+            if (n === 0) return 'Zero';
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            function tri(x) {
+                if (!x) return '';
+                if (x < 20) return a[x] + ' ';
+                if (x < 100) return b[Math.floor(x / 10)] + ' ' + (x % 10 ? a[x % 10] + ' ' : '');
+                return a[Math.floor(x / 100)] + ' Hundred ' + (x % 100 ? tri(x % 100) : '');
+            }
+            let r = '';
+            if (n >= 10000000) { r += tri(Math.floor(n / 10000000)) + 'Crore '; n %= 10000000; }
+            if (n >= 100000) { r += tri(Math.floor(n / 100000)) + 'Lakh '; n %= 100000; }
+            if (n >= 1000) { r += tri(Math.floor(n / 1000)) + 'Thousand '; n %= 1000; }
+            r += tri(n);
+            return r.trim();
+        }
+
+        // ── New Invoice ───────────────────────────────────────────────────────────────
+        function newInvoice() {
+            if (!confirm('Start fresh? All current data will be cleared.')) return;
+            document.getElementById('tbody').innerHTML = '';
+            rowId = 0;
+            const m = {
+                billTo: 'Client Name', billAddress: 'Address / GSTIN (optional)',
+                ref: '# INV-001', issued: new Date().toLocaleDateString('en-IN'),
+                due: '—', po: '—', subject: 'Invoice Subject',
+                notes: 'Looking forward for your business.',
+                terms: 'Payment due within 30 days of invoice date.',
+                sigName: 'Authorized Signatory'
+            };
+            Object.entries(m).forEach(([k, v]) => { const el = document.querySelector(`[data-field="${k}"]`); if (el) el.textContent = v; });
+            document.getElementById('gstPct').value = 18;
+            recalc(); addRow(); addRow();
+        }
+
+        // ── PDF helpers ───────────────────────────────────────────────────────────────
+        function gv(f) { return (document.querySelector(`[data-field="${f}"]`)?.textContent || '').trim(); }
+
+        // Strip rupee glyph (jsPDF Helvetica can't render ₹); keep numeric part
+        function pAmt(s) { return (s || '').replace(/[\u20B9]/g, 'Rs.').trim(); }
+        function pNum(s) { return (s || '').replace(/[^0-9.,]/g, '').trim(); }
+
+        // Convert a data-URL to the format jsPDF.addImage expects
+        // Returns { data, format } or null
+        function parseDataUrl(dataUrl) {
+            if (!dataUrl) return null;
+            const m = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+            if (!m) return null;
+            return { format: m[1].toUpperCase().replace('JPG', 'JPEG'), data: dataUrl };
+        }
+
+        // ── PDF Export ────────────────────────────────────────────────────────────────
+        async function downloadPDF() {
+            const btn = document.getElementById('dlBtn');
+            btn.disabled = true;
+            btn.innerText = "Generating...";
+
+            const invoice = document.getElementById("invoice");
+
+            const canvas = await html2canvas(invoice, {
+                scale: 2,
+                useCORS: true
+            });
+
+            const imgData = canvas.toDataURL("image/png");
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF("p", "mm", "a4");
+
+            const pageWidth = 210;
+            const pageHeight = 297;
+
+            const imgWidth = pageWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let y = 0;
+
+            if (imgHeight <= pageHeight) {
+                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+            } else {
+                // Multi-page support
+                let heightLeft = imgHeight;
+
+                pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft > 0) {
+                    y = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+            }
+
+            pdf.save("Invoice.pdf");
+
+            btn.innerText = "Download PDF";
+            btn.disabled = false;
+        }
+        // ── Init ──────────────────────────────────────────────────────────────────────
+        addRow('Dell Latitude 7480 Battery', 'With 1 year warranty', 3, 2650);
+        addRow('Service charges for Ram interchange', '4 pcs', 4, 50);
+    </script>
+</body>
+
+</html>
