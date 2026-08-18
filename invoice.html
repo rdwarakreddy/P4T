@@ -8,8 +8,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
         rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --ink: #1a1a2e;
@@ -568,7 +566,6 @@
 
         .t-row.grand {
             background: transparent;
-            /* removed blue background */
             padding: 12px 0;
             border-bottom: none;
             margin-top: 8px;
@@ -583,7 +580,6 @@
 
         .t-row.grand .t-val {
             color: #1a4ed8;
-            /* blue text */
             font-size: 18px;
             font-weight: 700;
         }
@@ -759,6 +755,43 @@
                 display: none !important;
             }
         }
+
+        /* ── PAPER SIZE SELECT ── */
+        .paper-select {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+            background: #fff;
+            border: 1.5px solid var(--ink);
+            border-radius: 3px;
+            padding: 0 6px 0 12px;
+        }
+
+        .paper-select select {
+            border: none;
+            background: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            padding: 10px 4px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* ── INLINE LOADING SPINNER FOR DOWNLOAD BUTTON ── */
+        .btn .spinner {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, .35);
+            border-top-color: #fff;
+            animation: spin .7s linear infinite;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 
@@ -781,11 +814,24 @@
                 </svg>
                 New Invoice
             </button>
-            <button class="btn btn-primary" id="dlBtn" onclick="downloadPDF()">
+            <label class="paper-select" title="PDF paper size">
+                Paper
+                <select id="paperSize">
+                    <option value="a4" selected>A4</option>
+                    <option value="letter">Letter</option>
+                </select>
+            </label>
+            <button class="btn btn-outline" id="wordBtn" onclick="downloadWordDoc()">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
                 </svg>
-                Download PDF
+                Download Word
+            </button>
+            <button class="btn btn-primary" id="dlBtn" onclick="downloadInvoicePDF()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
+                </svg>
+                Download Invoice
             </button>
         </div>
     </div>
@@ -921,6 +967,14 @@
                 <div class="f-label" style="margin-top:16px;">Terms &amp; Conditions</div>
                 <div class="f-text le" contenteditable spellcheck="false" data-field="terms">Warranty limited to
                     manufacturing defects only; no liability for physical damage, misuse.</div>
+                
+                <div class="f-label" style="margin-top:16px;">Bank Details</div>
+                <div class="f-text">
+                    Account Name: <span class="le" contenteditable spellcheck="false" data-field="bankAccName">Ramesh Reddy Dwarakanath Reddy</span><br>
+                    Bank Name: <span class="le" contenteditable spellcheck="false" data-field="bankName">State Bank of India (SBI)</span><br>
+                    Account Number: <span class="le" contenteditable spellcheck="false" data-field="bankAccNo">39966304219</span><br>
+                    IFSC Code: <span class="le" contenteditable spellcheck="false" data-field="bankIfsc">SBIN0015098</span>
+                </div>
             </div>
             <div class="footer-block">
                 <!-- Signature upload -->
@@ -946,6 +1000,10 @@
         </div>
 
     </div><!-- /#invoice -->
+
+    <!-- Libraries used for pixel-perfect, high-resolution PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         // ── Image state ──────────────────────────────────────────────────────────────
@@ -1074,77 +1132,316 @@
                 due: '—', po: '—', subject: 'Invoice Subject',
                 notes: 'Looking forward for your business.',
                 terms: 'Payment due within 30 days of invoice date.',
-                sigName: 'Authorized Signatory'
+                sigName: 'Authorized Signatory',
+                bankAccName: 'Ramesh Reddy Dwarakanath Reddy',
+                bankName: 'State Bank of India (SBI)',
+                bankAccNo: '39966304219',
+                bankIfsc: 'SBIN0015098'
             };
             Object.entries(m).forEach(([k, v]) => { const el = document.querySelector(`[data-field="${k}"]`); if (el) el.textContent = v; });
             document.getElementById('gstPct').value = 18;
             recalc(); addRow(); addRow();
         }
 
-        // ── PDF helpers ───────────────────────────────────────────────────────────────
-        function gv(f) { return (document.querySelector(`[data-field="${f}"]`)?.textContent || '').trim(); }
+        // ── Word Export ──────────────────────────────────────────────────────────────
+        function downloadWordDoc() {
+            const clone = document.getElementById("invoice").cloneNode(true);
 
-        // Strip rupee glyph (jsPDF Helvetica can't render ₹); keep numeric part
-        function pAmt(s) { return (s || '').replace(/[\u20B9]/g, 'Rs.').trim(); }
-        function pNum(s) { return (s || '').replace(/[^0-9.,]/g, '').trim(); }
+            // Remove non-exportable interactive UI elements from clone
+            clone.querySelectorAll('.btn-del, .logo-upload-overlay, .sig-upload-hint').forEach(el => el.remove());
 
-        // Convert a data-URL to the format jsPDF.addImage expects
-        // Returns { data, format } or null
-        function parseDataUrl(dataUrl) {
-            if (!dataUrl) return null;
-            const m = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
-            if (!m) return null;
-            return { format: m[1].toUpperCase().replace('JPG', 'JPEG'), data: dataUrl };
-        }
-
-        // ── PDF Export ────────────────────────────────────────────────────────────────
-        async function downloadPDF() {
-            const btn = document.getElementById('dlBtn');
-            btn.disabled = true;
-            btn.innerText = "Generating...";
-
-            const invoice = document.getElementById("invoice");
-
-            const canvas = await html2canvas(invoice, {
-                scale: 2,
-                useCORS: true
-            });
-
-            const imgData = canvas.toDataURL("image/png");
-
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF("p", "mm", "a4");
-
-            const pageWidth = 210;
-            const pageHeight = 297;
-
-            const imgWidth = pageWidth;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-            let y = 0;
-
-            if (imgHeight <= pageHeight) {
-                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-            } else {
-                // Multi-page support
-                let heightLeft = imgHeight;
-
-                pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft > 0) {
-                    y = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
+            // Convert input fields to static text
+            const gstInput = clone.querySelector('#gstPct');
+            if (gstInput) {
+                const span = document.createElement('span');
+                span.textContent = gstInput.value;
+                gstInput.parentNode.replaceChild(span, gstInput);
             }
 
-            pdf.save("Invoice.pdf");
+            // Extract stylesheet content to embed inside the Word doc document format
+            const styles = Array.from(document.querySelectorAll('style'))
+                .map(style => style.innerHTML)
+                .join('\n');
 
-            btn.innerText = "Download PDF";
-            btn.disabled = false;
+            const htmlHeader = `<html xmlns:o='urn:schemas-microsoft-com:office:office' 
+                xmlns:w='urn:schemas-microsoft-com:office:word' 
+                xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Invoice</title>
+                    <style>
+                        ${styles}
+                        body { background: #ffffff !important; }
+                        #invoice { width: 100% !important; max-width: 100% !important; box-shadow: none !important; }
+                    </style>
+                </head>
+                <body>`;
+
+            const htmlFooter = `</body></html>`;
+            const fullHTML = htmlHeader + clone.outerHTML + htmlFooter;
+
+            const blob = new Blob(['\ufeff', fullHTML], {
+                type: 'application/msword'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Invoice.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
+
+        // ── PDF Export (pixel-perfect, high-resolution, multi-page) ────────────────────
+        //
+        // Strategy: rather than re-building the invoice as PDF vector primitives (which
+        // would risk drifting from the on-screen design), we rasterize the *actual* live
+        // #invoice DOM at high resolution with html2canvas — this guarantees the PDF is a
+        // faithful pixel copy of whatever is on screen (fonts, colors, gradients, borders,
+        // images, icons, spacing, alignment). We then paginate that single tall image by
+        // measuring the real layout positions of each row/section so page breaks always
+        // fall *between* elements (never through a table row, the totals box, the
+        // signature block, etc.), and repeat the table header on any continuation page.
+
+        function getInvoiceFileName() {
+            const refEl = document.querySelector('[data-field="ref"]');
+            const raw = (refEl ? refEl.textContent : 'Invoice').trim();
+            const clean = raw.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            return (clean || 'Invoice') + '.pdf';
+        }
+
+        function waitForImagesLoaded(root) {
+            const imgs = Array.from(root.querySelectorAll('img')).filter(img => img.src);
+            return Promise.all(imgs.map(img => {
+                if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            }));
+        }
+
+        // Never let a single slow/stalled promise (e.g. a webfont network hiccup)
+        // make the export feel like it has frozen — cap the wait and move on.
+        function withTimeout(promise, ms) {
+            return Promise.race([
+                Promise.resolve(promise),
+                new Promise(resolve => setTimeout(resolve, ms))
+            ]);
+        }
+
+        function setDownloadBtnLoading(isLoading, label) {
+            const btn = document.getElementById('dlBtn');
+            if (isLoading) {
+                if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
+                btn.innerHTML = '<span class="spinner"></span> ' + (label || 'Generating…');
+                btn.disabled = true;
+            } else {
+                if (btn.dataset.originalHtml) btn.innerHTML = btn.dataset.originalHtml;
+                btn.disabled = false;
+            }
+        }
+
+        async function downloadInvoicePDF() {
+            const invoice = document.getElementById('invoice');
+            const { jsPDF } = window.jspdf || {};
+            if (typeof html2canvas === 'undefined' || !jsPDF) {
+                alert('PDF engine failed to load. Please check your internet connection and try again.');
+                return;
+            }
+
+            setDownloadBtnLoading(true, 'Preparing…');
+
+            // Blur any active editable field so no caret/focus ring is captured.
+            if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+
+            try {
+                // Fonts and images can be waited on in parallel (not sequentially), and
+                // each is capped at 3s so a slow connection can't stall the export.
+                const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+                await Promise.all([
+                    withTimeout(fontsReady, 3000),
+                    withTimeout(waitForImagesLoaded(invoice), 3000)
+                ]);
+                // One frame so layout/paint has settled after the blur above.
+                await new Promise(r => requestAnimationFrame(r));
+
+                setDownloadBtnLoading(true, 'Rendering…');
+
+                // ── Measure real layout positions (relative to #invoice) BEFORE capture ──
+                const invRect = invoice.getBoundingClientRect();
+                const relTop = el => el.getBoundingClientRect().top - invRect.top;
+                const relBottom = el => el.getBoundingClientRect().bottom - invRect.top;
+
+                const theadEl = invoice.querySelector('thead');
+                const rowEls = Array.from(invoice.querySelectorAll('#tbody tr'));
+
+                const atomicSelectors = [
+                    '.inv-header', '.inv-meta', '.inv-subject',
+                    'thead', '#tbody tr',
+                    '.inv-totals-area', '.inv-words', '.inv-footer', '.inv-bottom'
+                ];
+                const atomicBlocks = Array.from(invoice.querySelectorAll(atomicSelectors.join(',')))
+                    .map(el => ({ top: relTop(el), bottom: relBottom(el) }))
+                    .sort((a, b) => a.top - b.top);
+
+                const tbodyTop = rowEls.length ? relTop(rowEls[0]) : null;
+                const tbodyBottom = rowEls.length ? relBottom(rowEls[rowEls.length - 1]) : null;
+                const theadTop = theadEl ? relTop(theadEl) : null;
+                const theadBottom = theadEl ? relBottom(theadEl) : null;
+
+                // ── Choose a resolution that's crisp but fast ──
+                // Scale 2 gives ~230+ DPI on an A4 page for this layout — plenty sharp
+                // for print/zoom — while keeping capture + encode time reasonable.
+                const invoiceCssHeight = invRect.height;
+                const invoiceCssWidth = invRect.width;
+                let scale = 2;
+                const MAX_CANVAS_H = 10000; // stay comfortably under browser canvas limits
+                if (invoiceCssHeight * scale > MAX_CANVAS_H) {
+                    scale = Math.max(1.25, MAX_CANVAS_H / invoiceCssHeight);
+                }
+
+                // ── Rasterize the live #invoice element at high resolution ──
+                const canvas = await html2canvas(invoice, {
+                    scale: scale,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    windowWidth: Math.ceil(invoiceCssWidth),
+                    logging: false,
+                    onclone: (clonedDoc, clonedEl) => {
+                        const root = clonedEl || clonedDoc.getElementById('invoice');
+                        if (!root) return;
+                        // Print-only chrome: match the app's own @media print rules so the
+                        // PDF shows the same clean invoice as printing would.
+                        root.querySelectorAll(
+                            '.btn-add, .btn-del, .tbl-section-label, .logo-upload-overlay, .sig-upload-hint'
+                        ).forEach(el => { el.style.display = 'none'; });
+                        // Flat page look for export (the shadow/rounded corners are
+                        // on-screen editor chrome, not part of the printable invoice).
+                        root.style.boxShadow = 'none';
+                        root.style.borderRadius = '0';
+                        // Render the editable GST % as static text (same approach used
+                        // for the Word export) so the number input's browser chrome
+                        // never appears in the PDF.
+                        const gstInput = root.querySelector('#gstPct');
+                        if (gstInput) {
+                            const span = clonedDoc.createElement('span');
+                            span.textContent = gstInput.value;
+                            gstInput.parentNode.replaceChild(span, gstInput);
+                        }
+                    }
+                });
+
+                setDownloadBtnLoading(true, 'Building PDF…');
+
+                // ── Set up the PDF document ──
+                const paperSize = (document.getElementById('paperSize').value || 'a4');
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: paperSize,
+                    compress: true
+                });
+                const pageWmm = pdf.internal.pageSize.getWidth();
+                const pageHmm = pdf.internal.pageSize.getHeight();
+                const marginMm = 8;
+                const contentWmm = pageWmm - marginMm * 2;
+                const contentHmm = pageHmm - marginMm * 2;
+
+                // px(canvas) <-> mm conversion, based on fitting the canvas width to the
+                // printable content width.
+                const pxPerMm = canvas.width / contentWmm;
+                const contentHpx = contentHmm * pxPerMm;
+
+                const toCanvasPx = mmOrCss => Math.round(mmOrCss * scale);
+                const theadTopPx = theadTop !== null ? toCanvasPx(theadTop) : null;
+                const theadBottomPx = theadBottom !== null ? toCanvasPx(theadBottom) : null;
+                const tbodyTopPx = tbodyTop !== null ? toCanvasPx(tbodyTop) : null;
+                const tbodyBottomPx = tbodyBottom !== null ? toCanvasPx(tbodyBottom) : null;
+                const headerHeightPx = (theadTopPx !== null) ? (theadBottomPx - theadTopPx) : 0;
+
+                const blocksPx = atomicBlocks.map(b => ({
+                    top: toCanvasPx(b.top),
+                    bottom: toCanvasPx(b.bottom)
+                }));
+
+                // ── Compute page break points so we never slice through a row/section ──
+                const pages = []; // { sy, sh, repeatHeader }
+                let currentY = 0;
+                const totalH = canvas.height;
+                let guard = 0;
+
+                while (currentY < totalH - 1 && guard < 500) {
+                    guard++;
+                    const isContinuation = currentY > 0 && tbodyTopPx !== null &&
+                        currentY >= tbodyTopPx && currentY < tbodyBottomPx;
+                    const budget = isContinuation ? Math.max(1, contentHpx - headerHeightPx) : contentHpx;
+                    let target = Math.min(currentY + budget, totalH);
+
+                    if (target < totalH) {
+                        const straddler = blocksPx.find(b => b.top < target && b.bottom > target && b.top >= currentY);
+                        if (straddler) {
+                            let candidate = straddler.top;
+                            // Don't leave a lone table header with zero rows beneath it.
+                            if (theadTopPx !== null && currentY <= theadTopPx &&
+                                candidate > theadTopPx && candidate <= theadBottomPx) {
+                                candidate = theadTopPx;
+                            }
+                            target = (candidate > currentY) ? candidate : target;
+                        }
+                    }
+
+                    const sh = Math.max(1, Math.round(target - currentY));
+                    pages.push({ sy: currentY, sh, repeatHeader: isContinuation });
+                    currentY += sh;
+                }
+
+                // ── Composite each page (repeating the table header when needed) and add to PDF ──
+                const singlePage = pages.length === 1 && pages[0].sy === 0 && pages[0].sh === canvas.height;
+                const JPEG_QUALITY = 0.92;
+
+                for (let i = 0; i < pages.length; i++) {
+                    const page = pages[i];
+                    let imgHmm, imgData;
+
+                    if (singlePage) {
+                        imgHmm = canvas.height / pxPerMm;
+                        imgData = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
+                    } else {
+                        const pageCanvas = document.createElement('canvas');
+                        pageCanvas.width = canvas.width;
+                        pageCanvas.height = page.sh + (page.repeatHeader ? headerHeightPx : 0);
+                        const ctx = pageCanvas.getContext('2d');
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+
+                        let destY = 0;
+                        if (page.repeatHeader && headerHeightPx > 0) {
+                            ctx.drawImage(canvas, 0, theadTopPx, canvas.width, headerHeightPx, 0, 0, canvas.width, headerHeightPx);
+                            destY = headerHeightPx;
+                        }
+                        ctx.drawImage(canvas, 0, page.sy, canvas.width, page.sh, 0, destY, canvas.width, page.sh);
+
+                        imgHmm = pageCanvas.height / pxPerMm;
+                        imgData = pageCanvas.toDataURL('image/jpeg', JPEG_QUALITY);
+                    }
+
+                    if (i > 0) pdf.addPage(paperSize, 'portrait');
+                    pdf.addImage(imgData, 'JPEG', marginMm, marginMm, contentWmm, imgHmm, undefined, 'FAST');
+                }
+
+                pdf.save(getInvoiceFileName());
+            } catch (err) {
+                console.error('PDF generation failed:', err);
+                alert('Sorry, something went wrong while generating the PDF. Please try again.');
+            } finally {
+                setDownloadBtnLoading(false);
+            }
+        }
+
         // ── Init ──────────────────────────────────────────────────────────────────────
         addRow('Dell Latitude 7480 Battery', 'With 1 year warranty', 3, 2650);
         addRow('Service charges for Ram interchange', '4 pcs', 4, 50);
